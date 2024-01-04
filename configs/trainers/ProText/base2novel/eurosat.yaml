@@ -1,0 +1,44 @@
+# ProText: Prompt Learning with Text Only Supervision
+DATALOADER:
+  TRAIN_X:
+    BATCH_SIZE: 256
+  TEST:
+    BATCH_SIZE: 100
+  NUM_WORKERS: 8
+
+INPUT:
+  SIZE: (224, 224)
+  INTERPOLATION: "bicubic"
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  TRANSFORMS: ["random_resized_crop", "random_flip", "normalize"]
+
+OPTIM:
+  NAME: "adamw"
+  LR: 0.0025
+  MAX_EPOCH: 30
+  LR_SCHEDULER: "cosine"
+  WARMUP_EPOCH: 5
+  WARMUP_TYPE: "constant"
+  WARMUP_CONS_LR: 1e-5
+  WEIGHT_DECAY: 0.1
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.98
+
+
+TRAIN:
+  PRINT_FREQ: 20
+
+MODEL:
+  BACKBONE:
+    NAME: "ViT-B/16"
+
+TRAINER:
+  PROTEXT:
+    N_CTX_TEXT: 16
+    CTX_INIT: "a photo of a"
+    PREC: "fp16"
+    PROMPT_DEPTH_TEXT: 9
+    GPT_PATH: "templates/EuroSAT.json" # templates/EuroSAT.json
+    USE_TEMPLATES: False
+    USE_ATTRIBUTE_DATA: False
