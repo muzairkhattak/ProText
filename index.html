@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<meta property='og:title' content='ProText: Prompt Learning with Text Only Supervision'/>
+<meta property='og:image' content=''/>
+<meta property='og:description' content=''/>
+<meta property='og:url' content='https://muzairkhattak.github.io/ProText/'/>
+<meta property='og:image:width' content='1200' />
+<meta property='og:image:height' content='663' />
+<!-- TYPE BELOW IS PROBABLY: 'website' or 'article' or look on https://ogp.me/#types -->
+<meta property="og:type" content='website'/>
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9VZKE74FPW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-9VZKE74FPW');
+</script>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Learning to Prompt with Text Only Supervision for Vision-Language Models">
+  <meta name="keywords" content="Prompt Learning, Vision-Language models, CLIP, Generalization">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning to Prompt with Text Only Supervision for Vision-Language Models</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/tab_gallery.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+  <link rel="stylesheet" href="juxtapose/css/juxtapose.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/magnifier.js"></script>
+  <link href="https://fonts.cdnfonts.com/css/menlo" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/image_card_fader.css">
+  <link rel="stylesheet" href="./static/css/image_card_slider.css">
+
+</head>
+
+<style>
+  @import url('https://fonts.cdnfonts.com/css/menlo');
+</style>
+
+
+<body>
+  <section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Learning to Prompt with Text Only Supervision for Vision-Language Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://muzairkhattak.github.io/">Muhammad Uzair Khattak</a><sup> 1</sup>,</span>
+            <span class="author-block">
+              <a href="https://ferjad.github.io/">Muhammad Ferjad Naeem</a><sup> 2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=tM9xKA8AAAAJ&hl=en&oi=ao">Muzammal Naseer</a><sup>1</sup>,
+            </span>
+              <br>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=TwMib_QAAAAJ&hl=en">Luc Van Gool</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.de/citations?user=TFsE4BIAAAAJ&hl=en&oi=ao"> Federico Tombari</a><sup>3, 4</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Mohamed bin Zayed University of AI,</span>
+            <span class="author-block"><sup>2</sup>ETH Zurich,</span>
+            <span class="author-block"><sup>3</sup>TU Munich,</span>
+            <span class="author-block"><sup>4</sup>Google</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/muzairkhattak/ProText"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+
+              <span class="link-block">
+                <a href="#bibtex"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-obp"></i>
+                  </span>
+                  <span>BibTex</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+<img src="./static/images/main_figure.png" >
+      <h2 class="subtitle has-text-centered">
+<p align="justify"> <b> <span style="color: blue;">Left</span></b>:  Existing methods improve CLIP's generalization by learning prompts with image supervision or using non-transferable prompt ensembling with LLM knowledge. In contrast, our approach, ProText, effectively learns prompts with LLM knowledge based text-only supervision which are transferable to new datasets and classes. <b><span style="color: blue;">Right</span></b>: Without using any images for supervision, ProText with text-only training improves over CLIP, CuPL, and prior 16-shot image-supervised methods in challenging cross-dataset transfer settings. Prompt ensembling based CuPL performs same as CLIP as it cannot transfer class specific LLM templates to cross-datasets.  </p>
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+                 <!-- Visual Effects. -->
+      <div class="column">
+        <div style="text-align:center;" >
+
+<iframe width="900" height="600" src="https://www.youtube.com/embed/HecFYi-WpFI?si=JlEtUwA-W2Cf_ABR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+
+        </div>
+      </div>
+      <h2 class="title is-3">Abstract</h2>
+      <div class="content has-text-justified">
+        <p>
+Foundational vision-language models such as CLIP are becoming a new paradigm in vision, due to their excellent generalization abilities. However, adapting these models for downstream tasks while maintaining their generalization remains a challenge. In literature, one branch of methods adapts CLIP by learning prompts using visual information. While effective, most of these works require labeled data which is not practical, and often struggle to generalize towards new datasets due to over-fitting on the source data. An alternative approach resorts to training-free methods by generating class descriptions from large language models (LLMs) and perform prompt ensembling. However, these methods often generate class specific prompts that cannot be transferred to other classes, which incur higher costs by generating LLM descriptions for each class separately. In this work, we propose to combine the strengths of these both streams of methods by learning prompts using only text data derived from LLMs. As supervised training of prompts is not trivial due to absence of images, we develop a training approach that allows prompts to extract rich contextual knowledge from LLM data. Moreover, with LLM contextual data mapped within the learned prompts, it enables zero-shot transfer of prompts to new classes and datasets potentially cutting the LLM prompt engineering cost. To the best of our knowledge, this is the first work that learns generalized prompts using text only data. We perform extensive evaluations on 4 benchmarks where our method improves over prior ensembling works while being competitive to those utilizing labeled images. Our code and pretrained models are publicly available.          <br>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+
+</section>
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">A Text Only Prompt Learning framework Vision-Language Models</h2>
+        <div class="content has-text-justified">
+          <p>
+          <h5> <b> Main contributions : </b></h5>
+           <ol>
+             <li> <b>Text Only Prompt Learning Approach: </b> We develop a new approach for prompt learning in Vision-Language models without relying on visual samples for visual recognition tasks.</li>
+  <li><b>Learning Prompts with Contextual Mapping: </b> We introduce a training strategy for prompts to learn a mapping function that embeds rich and generalized contextual knowledge from Large Language Models (LLMs) based text data within the prompts.</li>
+  <li><b>LLM Prompts Transferability:  </b>With LLM contextual data mapped within the learned prompts, it enables zero-shot transfer of prompts to new classes and datasets, potentially reducing the LLM prompt engineering and serving costs.</li>
+</ol>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+  </div>
+</section>
+
+<section class="section">
+  
+    <!--/ Matting. -->
+    <div class="container is-max-desktop">
+    
+    <!-- Latent space editing applications -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">ProText Framework</h2>
+
+
+        
+        <div class="content has-text-centered">
+            <img src="./static/images/diagram.png">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            <b>Overview of ProText framework.</b> <b>(Left)</b> First, diverse captions are generated for training classes using LLM such as GPT-3. During training, CLIP text encoders generate <b><span style="color: dodgerblue;">prompted class-name feature</span></b>  \(({\tilde{{g}}_p})\) from class-name templates with learnable prompts and <b><span style="color: Red;">frozen LLM template feature</span></b>  \(({\tilde{{g}}})\) from LLM generated templates. Next, we employ contextual mapping loss to guide learnable prompts to learn a mapping from the prompted class-name feature to the LLM template feature containing more information about the class. This allows the learned prompts to exploit internal knowledge of text encoder complemented by LLM descriptions. \textbf{(Right)} At inference, learned prompts are used with class-name templates, and the standard zero-shot CLIP inference protocol is followed. Moreover, rich contextual information from LLM descriptions mapped within the learned prompts enables its transferability to new classes and datasets.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="columns is-centered">
+      <div class="column is-full-width has-text-centered">
+        <h2 class="title is-3">ProText results comparison</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            With same amount of text data, learning contextual prompts with text-only supervision improves CLIP performance against prompt ensembling techniques.
+          </p>
+        </div>
+                <h3 class="title is-4 has-text-justified">ProText fares well in comparison with Prompt Ensembling methods.</h3>
+        <div class="content has-text-centered">
+<center>
+<table  border="0">
+<tbody>
+<tr>
+<td> <b>Method</b>   </td>
+<td><center> <b>ImageNet Acc.</b>  </center>   </td>
+</tr>
+<tr>
+  <td><a href="https://arxiv.org/abs/2103.00020">CLIP</a></td>
+<td><center>66.72</center> </td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2210.07183">DCLIP</a></td>
+<td> <center> 68.03</center> </td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2306.07282">Waffle CLIP </a></td>
+<td> <center>68.34  </center> </td>
+
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2209.03320">CuPL</a></td>
+<td>  <center>69.62 </center>  </td>
+
+</tr>
+
+          <tr>
+<td><b style="color:black;"> ProText (ours) </b></td>
+<td> <b style="color:black;"> <center>70.22 </b></center>  </td>
+
+</tr>
+
+</tbody>
+</table>
+</center>
+
+<br/>
+        </div>
+                <div class="content has-text-justified">
+          <p>
+ Next, we demonstrate the generalization of ProText such that the learned prompts transfer well across new classes and datasets.       </p>
+                 <h3 class="title is-4 has-text-justified">ProText addresses the transferability limitations of LLM based Prompt Ensembling methods.</h3>
+
+                  <p align="justify"> With the contextual LLM information mapped with in the prompts, ProText enables the transferability of learned prompts to new classes and improves over CuPL.</p>
+<center>
+<table  border="0">
+<tbody>
+<tr>
+<td> <b>Method</b>   </td>
+<td><center> <b>Base Acc.</b>  </center>   </td>
+<td><center> <b>Novel Acc.</b>  </center>   </td>
+<td><center> <b>Harmonic mean (HM)</b>  </center>   </td>
+</tr>
+<tr>
+  <td><a href="https://arxiv.org/abs/2103.00020">CLIP</a></td>
+<td><center>69.34</center> </td>
+<td><center>74.22</center> </td>
+<td><center>71.70</center> </td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2209.03320">CuPL</a> </td>
+<td> <center>72.56 </center> </td>
+<td> <center>74.22</center> </td>
+<td> <center>73.38 </center> </td>
+</tr>
+<tr>
+   <td><b style="color:black;"> ProText (ours) </b></td>
+    <td> <b style="color:black;"> <center>72.95 </b></center>  </td>
+
+                    <td> <b style="color:black;"> <center>76.98 </b></center>  </td>
+
+                    <td> <b style="color:black;"> <center>74.91 </b></center>  </td>
+
+
+</tr>
+</tbody>
+</table>
+</center>
+
+<br/>
+        </div>
+
+        <br>
+        <h3 class="title is-4 has-text-justified">ProText performs favourably well in Cross-dataset benchmark</h3>
+        <div class="content has-text-justified">
+          <p>
+ProText with text-only training improves over CLIP, CuPL, and prior 16-shot image-supervised methods in challenging cross-dataset transfer settings. Prompt ensembling based CuPL performs same as CLIP as it cannot transfer class specific LLM templates to cross-datasets.          </p>
+        </div>
+        <div class="content has-text-centered">
+<center>
+<table  border="0">
+<tbody>
+<tr>
+<td> <b>Method</b>   </td>
+<td><center> <b>Supervision Type</b>  </center>   </td>
+<td><center> <b>Avg. Accuracy</b>  </center>   </td>
+</tr>
+<tr>
+  <td><a href="https://arxiv.org/abs/2109.01134">CoOP [1]</a></td>
+<td><center>labeled images</center> </td>
+<td><center>63.88</center> </td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2203.05557">CoCoOp [2]</a></td>
+<td> <center> labeled images</center> </td>
+<td> <center>65.74  </center> </td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2210.03117">MaPLe [3]</a></td>
+<td> <center>labeled images  </center> </td>
+<td> <center>66.30 </center> </td>
+
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2307.06948">PromptSRC [4]</a></td>
+<td>  <center>labeled images </center>  </td>
+<td>  <center>65.81  </center> </td>
+</tr>
+      <tr>
+<td><a href="https://arxiv.org/abs/2103.00020">CLIP</a> / <a href="https://arxiv.org/abs/2209.03320">CuPL</a></td>
+<td> <center>Text Prompts </center>  </td>
+<td> <center>65.15 </center> </td>
+
+</tr>
+          <tr>
+<td><b style="color:black;"> ProText (ours) </b></td>
+<td> <b style="color:black;"> <center>Text Prompts </b></center>  </td>
+<td> <b style="color:black;"> <center>67.23 </b></center> </td>
+
+</tr>
+
+</tbody>
+</table>
+</center>
+
+            <p>Models are trained on ImageNet-1k data and evaluated on 10 cross-datasets.</p>
+<br/>
+
+             <h3 class="title is-4 has-text-justified">Qualitative Results for ProText</h3>
+              <div class="item item-sunflowers">
+                <img src="./static/images/attention_map.png" width="500" height="600"/>
+              </div>
+                <div class="content has-text-justified">
+          <p>
+The above figure show attention map visualizations for CLIP and ProText for cross-datasets. ProText is trained on ImageNet-1k text-only data. This suggest that ProText can learn complementary contextual features, which steers CLIP for better transferability towards new datasets without relying on visual samples.         </p>
+        </div>
+
+        <h3 class="title is-4 has-text-justified">Conclusion</h3>
+        <div class="content has-text-justified">
+          <p>
+Prompt learning and LLM-based ensembling are effective techniques to improve CLIP's generalization. However, prompt learning often requires labeled images, which is less practical, while LLM-based ensembling methods are dominantly class-specific and not directly transferable to new classes. To address these challenges, we propose a new direction to adapt CLIP by learning generalized prompts with text-only supervision, without relying on visual data. We introduce a training strategy for prompts to learn a mapping function that embeds rich contextual knowledge from LLM text data within the prompts. The context learned by these prompts transfers well to unseen classes and datasets, potentially reducing the LLM prompt engineering and serving cost. We perform extensive evaluations on four benchmarks where our text-only approach performs favorably well over previous methods, including those utilizing labeled images.      </p>
+     <br><p>For additional details about ProText framework and results comparison in additional benchmarks, please refer to our main paper. Thank you!</p>
+        </div>
+
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title"><a id="bibtex">BibTeX</a></h2>
+    <pre><code>@article{Khattak2024ProText,
+    title={Learning to Prompt with Text Only Supervision for Vision-Language Models},
+    author={khattak, Muhammad Uzair and Ferjad, Muhammad and Muzzamal, Naseer and Gool, Luc Van and Tombari, Federico},
+    journal={arXiv:2307.06948},
+    year={2023}
+}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+<!--          <p>-->
+<!--            This website is licensed under a <a rel="license"-->
+<!--                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative-->
+<!--            Commons Attribution-ShareAlike 4.0 International License</a>.-->
+<!--          </p>-->
+          <p>
+            Website adapted from the following <a href="https://mingukkang.github.io/GigaGAN/">source code</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="juxtapose/js/juxtapose.js"></script>
+
+<script>
+var slider;
+let origOptions = {
+    "makeResponsive": true,
+    "showLabels": true,
+    "mode": "horizontal",
+    "showCredits": true,
+    "animate": true,
+    "startingPosition": "50"
+};
+
+const juxtaposeSelector = "#juxtapose-embed";
+const transientSelector = "#juxtapose-hidden";
+
+  inputImage.src = "./static/images/".concat(name, "_input.jpg")
+  outputImage.src = "./static/images/".concat(name, "_output.jpg")
+
+  let images = [inputImage, outputImage];
+  let options = slider.options;
+  options.callback = function(obj) {
+      var newNode = document.getElementById(obj.selector.substring(1));
+      var oldNode = document.getElementById(juxtaposeSelector.substring(1));
+      console.log(obj.selector.substring(1));
+      console.log(newNode.children[0]);
+      oldNode.replaceChild(newNode.children[0], oldNode.children[0]);
+      //newNode.removeChild(newNode.children[0]);
+      
+  };
+  
+  slider = new juxtapose.JXSlider(transientSelector, images, options);
+};
+
+
+
+(function() {
+    slider = new juxtapose.JXSlider(
+        juxtaposeSelector, origImages, origOptions);
+    //document.getElementById("left-button").onclick = replaceLeft;
+    //document.getElementById("right-button").onclick = replaceRight;
+})();
+  // Get the image text
+  var imgText = document.getElementById("imgtext");
+  // Use the same src in the expanded image as the image being clicked on from the grid
+  // expandImg.src = imgs.src;
+  // Use the value of the alt attribute of the clickable image as text inside the expanded image
+  imgText.innerHTML = name;
+  // Show the container element (hidden with CSS)
+  // expandImg.parentElement.style.display = "block";
+
+$(".flip-card").click(function() {
+            console.log("fading in")
+            div_back = $(this).children().children()[1]
+            div_front = $(this).children().children()[0]
+            // console.log($(this).children("div.flip-card-back"))
+            console.log(div_back)
+            $(div_front).addClass("out");
+            $(div_front).removeClass("in");
+
+            $(div_back).addClass("in");
+            $(div_back).removeClass("out");
+
+});
+
+$(".flip-card").mouseleave(function() {
+            console.log("fading in")
+            div_back = $(this).children().children()[1]
+            div_front = $(this).children().children()[0]
+            // console.log($(this).children("div.flip-card-back"))
+            console.log(div_back)
+            $(div_front).addClass("in");
+            $(div_front).removeClass("out");
+
+            $(div_back).addClass("out");
+            $(div_back).removeClass("in");
+
+});
+
+</script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>    
+
+</body>
+</html>
