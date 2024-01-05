@@ -1,12 +1,12 @@
 # ProText: Prompt Learning with Text Only Supervision
 
 
-> [**Learning to Prompt with Text Only Supervision for Vision-Language Models**](place_holder)<br>
+> [**Learning to Prompt with Text Only Supervision for Vision-Language Models**](https://arxiv.org/abs/2401.02418) <br>
 > [Muhammad Uzair Khattak](https://muzairkhattak.github.io/), [Muhammad Ferjad Naeem](https://ferjad.github.io/), [Muzammal Naseer](https://scholar.google.com/citations?user=tM9xKA8AAAAJ&hl=en&oi=ao), [Luc Van Gool](https://scholar.google.com/citations?user=TwMib_QAAAAJ&hl=en), [Federico Tombari](https://scholar.google.de/citations?user=TFsE4BIAAAAJ&hl=en&oi=ao)
 
 
 
-[![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)]()
+[![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2401.02418)
 [![Website](https://img.shields.io/badge/Project-Website-87CEEB)](https://muzairkhattak.github.io/ProText/)
 [![video](https://img.shields.io/badge/video-teaser-orange)](https://youtu.be/HecFYi-WpFI)
 
@@ -76,7 +76,7 @@ We propose ProText: **Pro**mpt Learning with **Text** Only Supervision, which le
 
 | Method                    | Paper                                                                        |               Configs               |        Training Scripts         |
 |---------------------------|:-----------------------------------------------------------------------------|:-----------------------------------:|:-------------------------------:|
-| ProText                   | [arXiv]()                                                                    |  [link](configs/trainers/ProText/)  |    [link](scripts/promptsrc)    |
+| ProText                   | [arXiv](https://arxiv.org/abs/2401.02418)                                                                    |  [link](configs/trainers/ProText/)  |    [link](scripts/promptsrc)    |
 | CuPL (Baseline)           | [arXiv](https://arxiv.org/abs/2209.03320)                                    |  [link](configs/trainers/ProText/)  |   [link](scripts/zsclip_cupl)   |
 | PromptSRC                 | [arXiv](https://arxiv.org/abs/2307.06948)                                    | [link](configs/trainers/PromptSRC/) |    [link](scripts/promptsrc)    |
 | Independent V-L Prompting | -                                                                            |   [link](configs/trainers/IVLP/)    | [link](scripts/independent-vlp) |
@@ -169,8 +169,8 @@ If you find our work, this repository, or pretrained models useful, please consi
 @article{Khattak2024ProText,
     title={Learning to Prompt with Text Only Supervision for Vision-Language Models},
     author={khattak, Muhammad Uzair and Ferjad, Muhammad and Muzzamal, Naseer and Gool, Luc Van and Tombari, Federico},
-    journal={arXiv:2307.06948},
-    year={2023}
+    journal={arXiv:2401.02418},
+    year={2024}
 }
 ```
 
