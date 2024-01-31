@@ -155,7 +155,7 @@ Please refer to the [TRAIN.md](docs/TRAIN.md) for detailed instructions on train
 
 For evaluation using pretrained weights, you can run the following command:
 ```
-sh scripts/protext/fully_supervised.sh imagenet path/to/pretrained/weights
+sh scripts/protext/fully_supervised_and_dg.sh imagenet path/to/pretrained/weights
 ```
 
 Please refer to the [EVAL.md](docs/EVAL.md) for detailed instructions on using the evaluation scripts and reproducing the official results using our pre-trained models.
