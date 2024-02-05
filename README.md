@@ -9,6 +9,7 @@
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2401.02418)
 [![Website](https://img.shields.io/badge/Project-Website-87CEEB)](https://muzairkhattak.github.io/ProText/)
 [![video](https://img.shields.io/badge/video-teaser-orange)](https://youtu.be/HecFYi-WpFI)
+[![slides](https://img.shields.io/badge/Presentation-Slides-B762C1)](https://drive.google.com/file/d/1H7u4QJwLYijbLAL0eAVJco64f59OokQQ/view?usp=sharing)
 
 
 Official PyTorch implementation
