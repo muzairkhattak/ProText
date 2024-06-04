@@ -1,6 +1,6 @@
 DATASET=$1
 EXP=$2
-DATAPATH=/home/gamerx/Documents/PhD_research/datasets
+DATAPATH=/path/to/datasets/folder
 
 # Train on all classes for a given dataset
 # --seed is only a place holder

@@ -26,7 +26,7 @@ def build_data_loader(
         class_names=None
 ):
     # Make Data Loader for Text-Only data
-    if is_train and cfg.TRAINER.NAME == "ProText" and (not cfg.TRAINER.PROTEXT.CROSS_DATASET):
+    if is_train and cfg.TRAINER.NAME == "ProText":
         data_source = DatasetWrapper_TextOnly(cfg, class_names)
     # Build sampler
     sampler = build_sampler(
@@ -41,7 +41,7 @@ def build_data_loader(
     if dataset_wrapper is None:
         dataset_wrapper = DatasetWrapper
 
-    if is_train and cfg.TRAINER.NAME == "ProText" and (not cfg.TRAINER.PROTEXT.CROSS_DATASET):
+    if is_train and cfg.TRAINER.NAME == "ProText":
         # Build data loader for text dataset only!!!
         data_loader = torch.utils.data.DataLoader(
             data_source,

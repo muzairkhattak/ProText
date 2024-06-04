@@ -30,7 +30,7 @@ The corresponding cross-dataset config for ProText is available at: `configs/tra
 
 ```bash
 # The second argument is the path for saving logs and model weights
-bash scripts/promptsrc/cross_datasets_train.sh imagenet output/imagenet_cross_dataset
+bash scripts/protext/cross_datasets_train.sh imagenet output/imagenet_cross_dataset
 ```
 
 * Now directly evaluate the ImageNet trained model on downstream cross-datasets.
@@ -38,9 +38,9 @@ bash scripts/promptsrc/cross_datasets_train.sh imagenet output/imagenet_cross_da
 ```bash
 # Other possible dataset values includes [imagenet, food101, dtd, ucf101, oxford_flowers, fgvc_aircraft, sun397, eurosat]
 # The second argument is the folder path for the pretrained model weight
-bash scripts/promptsrc/cross_datasets_test.sh caltech101 output/imagenet_cross_dataset
-bash scripts/promptsrc/cross_datasets_test.sh oxford_pets output/imagenet_cross_dataset
-bash scripts/promptsrc/cross_datasets_test.sh stanford_cars output/imagenet_cross_dataset 
+bash scripts/protext/cross_datasets_test.sh caltech101 output/imagenet_cross_dataset
+bash scripts/protext/cross_datasets_test.sh oxford_pets output/imagenet_cross_dataset
+bash scripts/protext/cross_datasets_test.sh stanford_cars output/imagenet_cross_dataset 
 ```
 
 #### (3) Domain Generalization setting
@@ -58,10 +58,10 @@ bash scripts/protext/fully_supervised_and_dg.sh imagenet output/imagenet_dg
 
 ```bash
 # The second argument is the folder path for the pretrained model weight
-bash scripts/promptsrc/dg_test.sh imagenetv2 output/imagenet_dg
-bash scripts/promptsrc/dg_test.sh imagenet_sketch output/imagenet_dg
-bash scripts/promptsrc/dg_test.sh imagenet_a output/imagenet_dg
-bash scripts/promptsrc/dg_test.sh imagenet_r output/imagenet_dg
+bash scripts/protext/dg_test.sh imagenetv2 output/imagenet_dg
+bash scripts/protext/dg_test.sh imagenet_sketch output/imagenet_dg
+bash scripts/protext/dg_test.sh imagenet_a output/imagenet_dg
+bash scripts/protext/dg_test.sh imagenet_r output/imagenet_dg
 ```
 
 
