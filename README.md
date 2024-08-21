@@ -18,6 +18,8 @@ Official PyTorch implementation
 
 
 # :rocket: News
+* **(April 21, 2024)**
+  * Paper accepted at CVPR Workshop on What is Next in Multimodal Foundation Models? 2024. 
 * **(Jan 05, 2023)**
   * Pre-trained models and evaluation codes for ProText are released.
   * Training codes for [ProText](configs/trainers/ProText) are released.
