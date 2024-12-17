@@ -18,6 +18,8 @@ Official PyTorch implementation
 
 
 # :rocket: News
+* **(December 8, 2024)**
+  * Paper accepted at AAAI'25 main track! 
 * **(April 21, 2024)**
   * Paper accepted at CVPR Workshop on What is Next in Multimodal Foundation Models? 2024. 
 * **(Jan 05, 2023)**
